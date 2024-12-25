@@ -1,0 +1,108 @@
+.container {
+    color: whitesmoke;
+}
+
+.intro-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.product-header {
+    color: bisque;
+}
+
+.product-order {
+    color: antiquewhite;
+}
+
+.form-label {
+    color: aliceblue;
+}
+
+.form-control {
+    background-color: white;
+    border: 1px solid rgb(29, 33, 54);
+    color: white;
+}
+
+.form-control:focus {
+    border-color: white;
+    background-color: rgb(19, 23, 42);
+}
+
+table {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid white;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: rgb(19, 23, 42);
+    color: whitesmoke;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+td {
+    vertical-align: middle;
+    /* Căn chỉnh văn bản và hình ảnh ở giữa theo chiều dọc */
+}
+
+
+th {
+    font-weight: normal;
+    /* Giảm độ đậm của tiêu đề bảng */
+}
+
+.product-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-name {
+    color: white;
+    margin-right: 10px;
+}
+
+.product-img {
+    width: 100px;
+    height: 75px;
+    border-radius: 5px;
+    margin-right: 10px;
+    object-fit: cover;
+    /* Đảm bảo ảnh không bị méo mà vẫn đầy đủ */
+    margin-right: 10px;
+    /* Khoảng cách giữa ảnh và tên sản phẩm */
+}
+
+.btn-gradient {
+    background: linear-gradient(to right, rgb(255, 64, 180), rgb(126, 43, 237));
+    /* Dùng 'background' thay vì 'background-color' */
+    color: white;
+    border-radius: 30px;
+    width: 200px;
+    padding: 10px 20px;
+    /* Thêm padding để nút có kích thước hợp lý */
+    text-align: center;
+    /* Căn giữa văn bản */
+    border: none;
+    /* Loại bỏ border nếu không cần */
+    cursor: pointer;
+    /* Thêm chỉ thị con trỏ khi di chuột lên nút */
+    width: 200px;
+}
+
+.btn-gradient:hover {
+    outline: none;
+    /* Loại bỏ outline mặc định */
+    box-shadow: 0 0 10px rgba(126, 43, 237, 0.7);
+    /* Thêm hiệu ứng đổ bóng khi hover */
+    border-color: white;
+    /* Tạo hiệu ứng viền màu trắng khi hover */
+    transform: scale(1.1);
+    /* Phóng to nút khi hover */
+}
