@@ -1,3 +1,12 @@
 .container {
-    color: whitesmoke;
+    color: rgb(173, 178, 203);
+}
+
+input {
+    border: none;
+
+
+    /* Nền mờ */
+    outline: none;
+    /* Loại bỏ viền khi trường nhập liệu được chọn */
 }

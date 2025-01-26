@@ -7,10 +7,20 @@
     text-align: center;
 }
 
-
 .form-login {
     max-width: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border: none;
+}
+
+.card {
+    border: rgb(12, 12, 55);
+}
+
+.card-body {
+    color: white;
+    background-color: rgb(12, 12, 55);
+
 }

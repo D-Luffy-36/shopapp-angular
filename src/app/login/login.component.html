@@ -6,28 +6,56 @@
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">Login</h3>
-                        <form>
-                            <!-- Email/Phone -->
+                        <form #loginForm = "ngForm">
+                            <!-- Phone -->
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email/Phone</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email or phone">
+                                <label for="email" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="email" 
+                                name="phone"
+                                placeholder="Enter your email or phone"
+                                required
+                                (input)="loginForm.form.markAsTouched()"
+                                [(ngModel)]="phone">
+                                <p class="text-danger" *ngIf="phone.length < 6 && loginForm.form.touched">
+                                    phone must have at least 6 character
+                                </p>
                             </div>
+
                             <!-- Password -->
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                                <input type="password" class="form-control" id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                required
+                                (focus)="loginForm.form.markAsTouched()"
+                                [(ngModel)]="password"
+                                >
+                                <p class="text-danger" 
+                                *ngIf="password.length < 6 && loginForm.form.touched">
+                                    password must have at least 6 character
+                                </p>
                             </div>
+
                             <!-- Remember me and Forgot Password -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
-                                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                                    <input type="checkbox"
+                                    class="form-check-input" 
+                                    id="remember"
+                                    name="remember"
+                                    [(ngModel)]="rememberMe"
+                                    >
                                     <label for="remember" class="form-check-label">Remember me</label>
                                 </div>
                                 <a href="#" class="text-decoration-none">Forgot password?</a>
                             </div>
+
                             <!-- Submit Button -->
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" 
+                                class="btn btn-primary"
+                                (click)="login()">Login</button>
                             </div>
                                 <div class="text-center">
                                 <p>Not a member? <a href="#!">Register</a></p>
