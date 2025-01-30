@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RegisterDTO } from '../dtos/register.dto';
-import { LoginDTO } from '../dtos/login.dto';
-import { environment } from '../environments/environment';
+import { RegisterDTO } from '../../dtos/register.dto';
+import { LoginDTO } from '../../dtos/login.dto';
+import { environment } from '../../environments/environment';
 
-console.log(environment.apiBaseUrl); // Kết quả: http://localhost:8080/api/v1
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class UserService {
 
   private apiConfig = {
     headers: this.createHeaders(),
-    'Accept-Language': 'en'
+    'Accept-Language': 'vi'
   }
 
   constructor(private http: HttpClient) { };

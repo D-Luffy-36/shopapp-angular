@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http'; // Import HttpClientModule
 import { Router } from '@angular/router';
-import { UserService } from '../service/user.service'
-import { RegisterDTO } from '../dtos/register.dto';
+import { UserService } from '../../service/user/user.service'
+import { RegisterDTO } from '../../dtos/register.dto';
 
 @Component({
   selector: 'app-register',
