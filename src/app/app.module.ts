@@ -37,6 +37,6 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
       multi: true, // Đảm bảo Angular sử dụng nhiều Interceptor nếu cần
     }
   ],
-  bootstrap: [LoginComponent]
+  bootstrap: [HomeComponent]
 })
 export class AppModule { }
