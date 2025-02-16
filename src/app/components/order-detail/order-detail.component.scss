@@ -114,3 +114,27 @@
     transform: scale(1.1);
     /* Phóng to nút khi hover */
 }
+
+.order-details .card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.order-details .card-header {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    font-weight: bold;
+}
+
+.order-details .card-body p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.order-details .table img {
+    border-radius: 0.5rem;
+}
+
+.order-details h4 {
+    font-weight: bold;
+}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/app/environments/environment';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
-import { ProductResponse } from 'src/app/responses/product/product.response';
+import { ProductResponse } from 'src/app/responses/product/list.product.response';
 import { ProductService } from 'src/app/service/product/product.service';
 import { CategoryService } from 'src/app/service/category/category.service';
 

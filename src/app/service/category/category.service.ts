@@ -11,10 +11,10 @@ import { Category } from 'src/app/models/category';
 
 
 export class CategoryService {
-    private categoryService = environment.apiBaseUrl + "/categories";
+    private categoryUrl = environment.apiBaseUrl + "/categories";
     constructor(private http: HttpClient) { };
 
     getCategories(): Observable<Category[]> {
-        return this.http.get<Category[]>(this.categoryService);
+        return this.http.get<Category[]>(this.categoryUrl);
     }
 }

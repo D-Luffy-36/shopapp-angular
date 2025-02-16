@@ -16,7 +16,6 @@ export class TokenService {
         return localStorage.getItem(this.TOKEN_KEY);
     }
 
-
     // lưu token local storage
     setToken(token: string): void {
         localStorage.setItem(this.TOKEN_KEY, token);
