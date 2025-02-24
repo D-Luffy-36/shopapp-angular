@@ -16,6 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app/app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { NotificationComponent } from './components/notification/notification.component';
+
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import { RouterModule } from '@angular/router';
     RegisterComponent,
     DetailProductComponent,
     OrderDetailComponent,
-    AppComponent
+    AppComponent,
+    OrderHistoryComponent,
+    NotificationComponent,
   ],
   imports: [
     ReactiveFormsModule,

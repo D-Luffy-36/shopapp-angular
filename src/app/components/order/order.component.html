@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="intro-section">
-        <h1>This is Order</h1>
+        <h1 style="color: plum;">Order</h1>
     </div>
 
     <div class="row">
@@ -101,9 +101,11 @@
                             </td>
         
                             <td>
-                                <button class="btn btn-info btn-sm">Detail</button> <!-- Nút chi tiết -->
-                                <button class="btn btn-warning btn-sm">Update</button> <!-- Nút chỉnh sửa -->
-                                <button class="btn btn-danger btn-sm">Delete</button> <!-- Nút xóa -->
+                                <button class="btn btn-info btn-sm"
+                                (click)="edit(item.product.id)">Edit</button> <!-- Nút chi tiết -->
+                               
+                                <button class="btn btn-danger btn-sm"
+                                (click)="delete(item.product.id)">Delete</button> <!-- Nút xóa -->
                             </td>
                         </tr>
                        

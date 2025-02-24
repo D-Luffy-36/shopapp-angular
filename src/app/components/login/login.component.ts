@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoginDTO } from '../../dtos/login.dto';
 import { UserService } from '../../service/user/user.service';
@@ -8,6 +8,7 @@ import { ApiResponse } from '../../responses/api.response';
 import { TokenService } from 'src/app/service/user/token.service';
 import { Role } from 'src/app/models/role';
 import { RoleService } from 'src/app/service/user/role.service';
+import { UserResponse } from '../../responses/user/user.response'
 
 
 @Component({
@@ -16,7 +17,7 @@ import { RoleService } from 'src/app/service/user/role.service';
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   roles: Role[] = []; // Mảng roles
   selectRole: Role | undefined;
 
@@ -25,6 +26,7 @@ export class LoginComponent {
   phone: string;
   password: string;
   rememberMe: boolean;
+  userResponse?: UserResponse;
 
   constructor(private router: Router,
     private userService: UserService,
@@ -39,43 +41,63 @@ export class LoginComponent {
 
   ngOnInit() {
     // Gọi API lấy danh sách roles và lưu vào biến roles
-    this.roleService.getRoles().subscribe({
-      next: (response: ApiResponse<Role[]>) => {
-        this.roles = response.data;
+    // this.roleService.getRoles().subscribe({
+    //   next: (response: ApiResponse<Role[]>) => {
+    //     this.roles = response.data;
 
-        this.selectRole = this.roles.length > 0 ? this.roles[1] : undefined;
-        console.log("roles: " + JSON.stringify(this.roles));
-      },
-      error: (error: any) => {
-        debugger
-        console.error('Error getting roles:', error);
-      }
-    })
+    //     this.selectRole = this.roles.length > 0 ? this.roles[1] : undefined;
+    //     console.log("roles: " + JSON.stringify(this.roles));
+    //   },
+    //   error: (error: any) => {
+    //     debugger
+    //     console.error('Error getting roles:', error);
+    //   }
+    // })
   }
 
   login() {
     const loginDTO: LoginDTO = {
       "phone_number": this.phone,
       "password": this.password,
-      "role_id": this.selectRole?.id ?? 2,
+
     }
 
     const loginDTOFake: LoginDTO = {
       "phone_number": "012345613",
-      "password": "SecurePassword123",
-      "role_id": 2
+      "password": "SecurePassword123"
     }
 
-    this.userService.login(loginDTOFake).subscribe({
+    this.userService.login(loginDTO).subscribe({
       next: (response: ApiResponse<LoginResponse>) => {
         // Xử lý phản hồi thành công
 
+        // Nếu token có giá trị truthy (khác null, undefined, false, 0, NaN, hoặc ""), thì khối lệnh trong if sẽ được thực thi.
         // lưu trữ token
         const { token } = response.data;
-        if (this.rememberMe) {
+        if (token) {
           this.tokenService.setToken(token);
+          debugger
+          this.userService.getUserDetail(token).subscribe({
+            next: (userApiResponse: ApiResponse<UserResponse>) => {
+              if (userApiResponse.message || userApiResponse.status === 'BAD_REQUEST') {
+                alert(userApiResponse.message)
+                return;
+              }
+              this.userResponse = userApiResponse.data;
+
+              this.userService.saveUserResponseToLocalStorage(this.userResponse);
+            },
+            error: (err: any) => {
+              debugger;
+              console.log("error: ", err)
+            }
+          })
         }
+
+        this.router.navigate(['/']);
         alert("Well come shop app")
+
+
       },
       error: (err: any) => {
         alert('Login failed: ' + err.error.message);
@@ -85,16 +107,3 @@ export class LoginComponent {
   }
 
 }
-
-
-// b1 binding data two way
-
-// {
-//   "message": "Đăng nhập thành công",
-//   "status": "OK",
-//   "data": {
-//       "tokenType": null,
-//       "token": "eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6IjAxMjM0NTY0MSIsInJvbGVJZCI6MSwic3ViIjoiMDEyMzQ1NjQxIiwiZXhwIjoxNzQwNTU5MDAwfQ.EwZLhQx24BMKJCCldPoi2K_EuiuKaKxRCDpE_m_Tjok",
-//       "refresh_token": null
-//   }
-// }

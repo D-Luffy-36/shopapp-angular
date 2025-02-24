@@ -5,6 +5,8 @@ import { Product } from 'src/app/models/product';
 import { ProductResponse } from 'src/app/responses/product/list.product.response';
 import { ProductService } from 'src/app/service/product/product.service';
 import { CategoryService } from 'src/app/service/category/category.service';
+import { CartService } from 'src/app/service/cart/cart.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -30,13 +32,15 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private cartService: CartService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getProducts(this.keyWord, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
     this.getCategories();
-    localStorage.setItem("access_token", environment.accessToken);
+
   }
 
   getProducts(keyword: string, selectedCategoryId: number, page: number, limit: number) {
@@ -93,5 +97,23 @@ export class HomeComponent implements OnInit {
     this.getProducts(this.keyWord, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
   }
 
+
+  addToCart(productId: number, amount: number, showAlert: boolean = true) {
+    this.cartService.addToCart(productId, amount)
+    if (showAlert) {
+      alert("add to cart successfully")
+    }
+  }
+
+
+  buyNow(productId: number, amount: number) {
+    this.addToCart(productId, amount, false);
+    this.router.navigate(['/orders']);
+  }
+
+
+  detail(productId: number) {
+    this.router.navigate([`/detail-product/${productId}`]);
+  }
 
 }

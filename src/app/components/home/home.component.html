@@ -6,8 +6,6 @@
          <h1>
             this is home page
          </h1>
-         <p>danh sách các sản phẩm kèm ảnh</p>
-         <p>các bạn có thể vào đây mua hàng tại đây</p>
      </div>
      <!-- đoạn này  có 1 ô searchbox bên trái, 1 combo box bên phải -->
      <div class="search-box">
@@ -35,8 +33,9 @@
         </div>
 
         <div class="col-lg-4 col-md-6" *ngFor = "let product of products">
-            <div class="product-item" >
+            <div class="product-item">
                  <img [src]="imagePath + '/' + product.thumbnail"
+                 (click)="detail(product.id)"
                  class="product-img" alt="Macbook">
                  <p class="product-name">{{product.name}}</p>
                  <p class="product-description"> {{product.description}}</p>  
@@ -47,8 +46,8 @@
                     <i class="fa fa-star" *ngFor="let i of [1, 2, 3, 4, 5]"></i>                                  
                  </div>
                  <div class="product-actions">
-                     <button class="btn btn-primary" >add to cart</button>
-                     <button class="btn btn-success">buy now</button>
+                     <button class="btn btn-primary" (click)="addToCart(product.id, 1)" >add to cart</button>
+                     <button class="btn btn-success" (click)="buyNow(product.id, 1)" >buy now</button>
                  </div>
             </div>
         </div>

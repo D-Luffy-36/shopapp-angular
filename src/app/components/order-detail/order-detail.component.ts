@@ -5,7 +5,8 @@ import { ApiResponse } from 'src/app/responses/api.response';
 import { OrderResponse } from 'src/app/responses/order/order.response';
 import { CartService } from 'src/app/service/cart/cart.service';
 import { OrderService } from 'src/app/service/order.service';
-import { ProductService } from 'src/app/service/product/product.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-order-detail',
@@ -15,11 +16,20 @@ import { ProductService } from 'src/app/service/product/product.service';
 
 export class OrderDetailComponent implements OnInit {
   order?: OrderResponse;
+  orderDetails: OrderResponse[] = [];
 
-  private orderId = 39;
+  private orderId: number = -1;
   imagePath = environment.imagePath;
-  constructor(private orderService: OrderService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private orderService: OrderService) { }
   ngOnInit(): void {
+
+    this.route.paramMap.subscribe(params => {
+      this.orderId = Number(params.get('id'));
+      console.log('Order ID:', this.orderId);
+    });
 
     this.orderService.getOrderById(this.orderId).subscribe({
       next: (response: ApiResponse<OrderResponse>) => {

@@ -6,6 +6,11 @@ import { CartService } from 'src/app/service/cart/cart.service';
 import { OrderService } from 'src/app/service/order.service';
 import { ProductService } from 'src/app/service/product/product.service';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/service/user/user.service';
+import { TokenService } from 'src/app/service/user/token.service';
+import { ApiResponse } from 'src/app/responses/api.response';
+import { OrderResponse } from 'src/app/responses/order/order.response';
 
 @Component({
   selector: 'app-order',
@@ -21,12 +26,12 @@ export class OrderComponent implements OnInit {
   totalPrice: number = 0;
   couponCode: string = "";
   orderData: OrderDTO = {
-    user_id: 3, // Thay bằng user_id thích hợp
+    user_id: 0, // Thay bằng user_id thích hợp
     full_name: 'noname', // Khởi tạo rỗng, sẽ được điền từ form
     email: "customer@gmail.com",
     phone_number: '1234567890',
-    address: 'hcm',
-    note: 'abcxzy', // Có thể thêm trường ghi chú nếu cần
+    address: 'Q12, HCM',
+    note: 'Xin nhẹ tay', // Có thể thêm trường ghi chú nếu cần
     total_money: this.totalPrice, // Sẽ được tính toán dựa trên giỏ hàng và mã giảm giá
     shipping_method: "Standard Shipping", // Giá trị mặc định
     payment_method: 'COD', // Giá trị mặc định
@@ -37,6 +42,9 @@ export class OrderComponent implements OnInit {
 
   imagePath = environment.imagePath;
   constructor(
+    private router: Router,
+    private userService: UserService,
+    private tokenService: TokenService,
     private productService: ProductService,
     private cartService: CartService,
     private orderService: OrderService) {
@@ -54,6 +62,10 @@ export class OrderComponent implements OnInit {
       .map(value => String(value)) // Chuyển số thành chuỗi
       .join(","); // Nối bằng dấu phẩy
     //  this.productIds.split(",") =  ["1", "2"]
+
+    if (this.productIds.length < 1) {
+      return;
+    }
 
     this.productService.getProductsDetailByIds(this.productIds).subscribe({
       next: (products: Product[]) => {
@@ -77,7 +89,7 @@ export class OrderComponent implements OnInit {
         console.log(this.orderData.cart_items);
       },
       error: (err) => {
-        debugger;
+        // debugger;
         console.log("error: " + err)
       }
     })
@@ -87,12 +99,6 @@ export class OrderComponent implements OnInit {
     //   product_id: item.product.id,
     //   quantity: item.quantity
     // }))
-
-
-    console.log(this.orderData)
-
-
-    console.log(this.productIds.trim());
   }
 
   calculatorTotal() {
@@ -103,15 +109,28 @@ export class OrderComponent implements OnInit {
 
 
   onOrderClick() {
+    if (this.productIds === '') {
+      alert("Cart is empty")
+      return;
+    }
+
     if (this.orderForm.valid) {
       console.log('Order:', this.orderForm.value);
       this.orderData = {
         ...this.orderData,        // Lấy tất cả thuộc tính cũ
-        ...this.orderForm.value   // Ghi đè thuộc tính trùng tên bằng giá trị mới từ form
+        ...this.orderForm.value,   // Ghi đè thuộc tính trùng tên bằng giá trị mới từ form
+        user_id: this.tokenService.getUserIdFromToken()
       };
+
+      console.log(this.orderData)
+
       this.orderService.createOrder(this.orderData).subscribe({
-        next: (response: any) => {
+        next: (response: ApiResponse<OrderResponse>) => {
           console.log("create order: ", response);
+          alert("order successfully! Thank U so much")
+          this.cartService.clearCart();
+          this.router.navigate(["/orders/", response.data.id])
+
         },
         error: (err) => {
           debugger;
@@ -138,19 +157,21 @@ export class OrderComponent implements OnInit {
   }
 
 
+  edit(productId: number) {
+    this.router.navigate([`/detail-product/${productId}`]);
+  }
+
+  delete(productId: number) {
+
+    // xóa phía UI
+    this.cartItems = this.cartItems.filter((item) => {
+      return item.product.id !== productId;
+    })
+    // xóa trong cart local storage
+    this.cartService.removeFromCart(productId);
+
+
+  }
+
 }
 
-
-
-// user_id: 3, // Thay bằng user_id thích hợp
-// full_name: 'noname', // Khởi tạo rỗng, sẽ được điền từ form
-// email: "customer@gmail.com",
-// phone_number: '1234567890',
-// address: 'hcm',
-// note: 'abcxzy', // Có thể thêm trường ghi chú nếu cần
-// total_money: this.totalPrice, // Sẽ được tính toán dựa trên giỏ hàng và mã giảm giá
-// shipping_method: "Standard Shipping", // Giá trị mặc định
-// payment_method: 'COD', // Giá trị mặc định
-// coupon_code: this.couponCode, // Sẽ được điền từ form khi áp dụng mã giảm giá
-// // thông tin để tạo order_detail
-// cart_items: [] // Danh sách sản phẩm trong giỏ hàng

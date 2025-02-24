@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .table {
+        width: auto;
+    }
+
+    .table-responsive {
+        .custom-table tbody tr {
+            &:hover {
+                background-color: #ffc107 !important;
+            }
+        }
+    }
+
+    .intro-section {
+        text-align: center;
+        color: white;
+        padding: 20px;
+    }
+
+    .custom-table {
+
+        th,
+        td {
+            vertical-align: middle;
+            padding: 12px;
+        }
+
+        tbody tr:hover {
+            cursor: pointer;
+            background-color: #f1f1f1;
+            /* Hiệu ứng hover */
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .badge {
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+    }
+
+
+
+}

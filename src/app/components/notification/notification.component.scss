@@ -1,0 +1,72 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.notification-header {
+    text-align: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.notification-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.notification-card {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.notification-card:hover {
+    transform: translateY(-10px);
+}
+
+.notification-card img {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-content {
+    padding: 15px;
+}
+
+.notification-content h3 {
+    font-size: 18px;
+    color: #555;
+    margin: 0 0 10px;
+}
+
+.notification-content p {
+    font-size: 14px;
+    color: #777;
+    margin: 0;
+}
+
+.notification-content .price {
+    font-size: 20px;
+    color: #E89CA6;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+image {
+    width: 100px;
+    height: 100px;
+}

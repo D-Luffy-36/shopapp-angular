@@ -48,8 +48,8 @@
                     <p>description {{product?.description}}</p>
                     <p class="product-price">Unit price: {{product?.price | currency:'VND':'symbol':'1.0-2' }}</p>
                     <div class="product-action">
-                        <button (click)="addToCart()">add to cart</button>
-                        <button>buy now</button>
+                        <button (click)="addToCart(productId, amount)">add to cart</button>
+                        <button (click)="buyNow(productId, amount)">buy now</button>
                     </div>
                     <div class="product-quantity">
                         <button (click)="onClickReduce()">-</button>

@@ -21,7 +21,7 @@ export class OrderService {
 
     private createHeaders(): HttpHeaders {
 
-        const token = environment.accessToken;
+        const token = this.tokenService.getToken();
         return new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -36,6 +36,11 @@ export class OrderService {
     getOrderById(orderId: number): Observable<ApiResponse<OrderResponse>> {
         const url = this.orderUrl + `/${orderId}`;
         return this.http.get<ApiResponse<OrderResponse>>(url);
+    }
+
+    getOrderByUserId(userId: number): Observable<ApiResponse<OrderResponse[]>> {
+        const url = this.orderUrl + `/users/${userId}`;
+        return this.http.get<ApiResponse<OrderResponse[]>>(url);
     }
 
 }

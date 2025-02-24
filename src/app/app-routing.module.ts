@@ -6,6 +6,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { OrderComponent } from './components/order/order.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { NgModule } from '@angular/core';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 const routes: Routes = [
@@ -14,7 +16,11 @@ const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'products/:id', component: DetailProductComponent },
     { path: 'orders', component: OrderComponent },
-    { path: 'order/:id', component: OrderDetailComponent }
+    { path: 'orders/:id', component: OrderDetailComponent },
+    { path: 'history', component: OrderHistoryComponent },
+    { path: 'detail-product/:id', component: DetailProductComponent },
+    { path: 'notification', component: NotificationComponent }
+
 ];
 
 

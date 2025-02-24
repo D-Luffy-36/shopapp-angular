@@ -3,6 +3,8 @@ import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/service/product/product.service';
 import { CartService } from 'src/app/service/cart/cart.service';
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,20 +13,29 @@ import { CartService } from 'src/app/service/cart/cart.service';
   styleUrls: ['./detail-product.component.scss']
 })
 export class DetailProductComponent {
-  amount: number = 0;
+  amount: number = 1;
   product?: Product;
-  productId: number = 3;
+  productId: number = 0;
   imagePath = environment.imagePath;
   currentImageIndex: number = 0;
-  constructor(private productService: ProductService, private cartService: CartService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private cartService: CartService) { }
 
   ngOnInit() {
-    localStorage.setItem("access_token", environment.accessToken);
+    // this.productId = Number(this.route.snapshot.paramMap.get('id'));
+    this.route.params.subscribe(params => {
+      this.productId = Number(params['id']);
+    })
+
+
     this.getProductDetail(this.productId);
   }
 
   getProductDetail(productId: number) {
-    this.productService.getProductsDetail(this.productId).subscribe({
+    this.productService.getProductsDetail(productId).subscribe({
       next: (product: Product) => {
         // this.product = response;
         // console.log(product);
@@ -81,15 +92,19 @@ export class DetailProductComponent {
     }
   }
 
-  addToCart() {
-    if (this.product) {
-      this.cartService.addToCart(this.product.id, this.amount);
-    }
-    else {
-      console.log('can not add product to cart')
+
+  addToCart(productId: number, amount: number, showAlert: boolean = true) {
+    this.cartService.addToCart(productId, amount)
+    if (showAlert) {
+      alert("add to cart successfully")
     }
   }
 
+
+  buyNow(productId: number, amount: number) {
+    this.addToCart(productId, amount, false);
+    this.router.navigate(['/orders']);
+  }
 
 
 }
