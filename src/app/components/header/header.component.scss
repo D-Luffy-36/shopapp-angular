@@ -1,6 +1,15 @@
+@import '../../styles/share-styles.scss';
+
+
+
 header {
     background-color: rgba(0, 0, 0, 0);
     color: rgb(173, 178, 203);
+}
+
+.infor {
+    background-color: darkgray;
+    font-size: small;
 }
 
 .navbar {
@@ -30,4 +39,13 @@ header {
             }
         }
     }
+}
+
+
+
+
+.scrolled {
+    background-color: black;
+    /* Màu nền khi cuộn */
+    color: white;
 }

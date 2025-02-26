@@ -1,0 +1,117 @@
+<app-header></app-header>
+   <div class="container mt-5">
+        <div class="intro-section col-md-6">
+            <div class="card text-center shadow-lg border-0" *ngIf="{user}">
+                <div class="card-body">
+                    <h1 class="card-title text-primary fw-bold display-5">📦 Profile</h1>
+                    <p class="card-text fs-4 text-dark">👤 User:  <span class="badge bg-success fs-5">{{user.full_name}}</span></p>
+                    <img src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/474520044_571326592552132_6650432183614037729_n.jpg?stp=c0.0.1080.1080a_dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_ohc=2BWGGEJPd1sQ7kNvgH0AH2k&_nc_oc=AdjM0yeJdPmqu8eZWwWGIH6dgV6bxcOlSNnR05hHD0AlH8ExzJ0cqLMJ5g5FO8iA2IpsspZSP8vZIOdosxk_BQdk&_nc_zt=24&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=AtaGEv6iGN3-BclIvB8lRKZ&oh=00_AYD-UaAaCeM0tlz90cuLz7-mZV3ZvH35W7M5I4m62FxGag&oe=67C3C0DB" alt="">
+                </div>   
+            </div>
+        </div>
+
+        <div class="profile-container col-md-6" *ngIf="user">
+            <form  #profileForm="ngForm" >
+                <div class="row justify-content-center">
+                    <div>
+                              <!-- phone_number -->
+                              <div class="mb-3">
+                                <label for="phone_number" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone_number"
+                                name="phone_number" placeholder="Enter your phone_number number"
+                                [(ngModel)]="dataUpdate.phone_number" 
+                                (forcus) = "profileForm.form.markAsTouched()">
+                                <p class="text-danger" *ngIf="dataUpdate.phone_number.length < 6 && profileForm.form.touched">
+                                    phone_number must have at least 6 character</p>
+                            </div>
+        
+                            <!-- Name -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Enter your full name" required
+                                [(ngModel)]="dataUpdate.full_name">
+                                <div class="invalid-feedback">Please enter your name.</div>
+                            </div>
+        
+                            <!-- Adress -->
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" 
+                                name="address" placeholder="Enter your address" required [(ngModel)]="dataUpdate.address">
+                                <!-- <div class="invalid-feedback">Please enter a valid email.</div> -->
+                            </div>
+                            
+                            <!-- Date of Birth -->
+                            <div class="mb-3">
+                                <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" id="dateOfBirth" 
+                                name="dateOfBirth" placeholder="Enter your date of birth"
+                                [(ngModel)]="dataUpdate.date_of_birth"
+                                (input)= "profileForm.form.markAsTouched(); checkAge()" >
+    
+                                <p class="text-danger" 
+                                *ngIf="profileForm.controls['dateOfBirth']?.hasError('invalidAge') 
+                                    && profileForm.form.touched">
+                                you are under 18
+                                </p>
+                            </div>
+        
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <input type="password" class="form-control" id="password"
+                                    name="password"  
+                                    placeholder="Enter your password"                             
+                                    required
+                                    [(ngModel)]="dataUpdate.password">
+                                    <i class="fa-solid fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                                    <i class="fa-solid fa-eye-slash"></i>
+                                </div>
+                                <p class="text-danger"
+                                 *ngIf="dataUpdate.password.length < 6 && profileForm.form.touched">
+                                    password must have at least 6 character .</p>
+                            </div>
+        
+                            <!-- Confirm Password -->
+                            <div class="mb-3">
+                                <label for="confirm-password" class="form-label">Confirm Password</label>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <input
+                                    placeholder="Re-enter your password"
+                                    [(ngModel)]="dataUpdate.retype_password"
+                                    name="retype_password"     
+                                    type="password" 
+                                    class="form-control"
+                                    id="confirm-password"      
+                                    required 
+                                    (input)="profileForm.form.markAsTouched(); checkPasswordsMatch()">
+    
+                                    <i class="fa-solid fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                                    <i class="fa-solid fa-eye-slash"></i>
+                                </div>
+                                <p class="text-danger" *ngIf="dataUpdate.retype_password.length < 6 && profileForm.form.touched">
+                                    password must have at least 6 character .</p>
+                                <p class="text-danger" 
+                                    *ngIf="profileForm.controls['retype_password']?.hasError('passwordMismatch') 
+                                        && profileForm.form.touched">
+                                    password doesnt not match
+                                </p>
+                            </div>
+        
+                            <!-- Submit Button -->
+                            <div class="d-grid">
+                                <button type="submit" 
+                                class="btn btn-primary" (click)="updateUser()">Update</button>
+                            </div>
+        
+                           
+                    </div>
+                </div>
+            </form>
+        </div>
+
+   </div>
+    
+<app-footer></app-footer>

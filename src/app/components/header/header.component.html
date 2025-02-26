@@ -1,4 +1,4 @@
-<header>
+<header #header class="fixed-header sticky-top" >
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" routerLink="/">
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div>
+        <div >
             <ul class="navbar-nav ms-auto">
                 <!-- Nếu chưa đăng nhập hoặc chưa có tài khoản -->
                 <li class="nav-item" *ngIf="!user">
@@ -48,16 +48,21 @@
                         <a class="nav-link btn btn-primary" routerLink="/register">Register</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                   
+                </li>
             
                 <!-- Nếu đã đăng nhập, hiển thị dropdown -->
-                <li class="nav-item dropdown" *ngIf="user">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item dropdown me-auto" *ngIf="user">
+                    <a class="nav-link dropdown-toggle btn btn-primary infor" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <!-- <img [src]="user.avatar || 'assets/default-avatar.png'" class="user-avatar"> -->
+                        <img src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-1/474520044_571326592552132_6650432183614037729_n.jpg?stp=c0.0.1080.1080a_dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e99d92&_nc_ohc=2BWGGEJPd1sQ7kNvgH0AH2k&_nc_oc=AdjM0yeJdPmqu8eZWwWGIH6dgV6bxcOlSNnR05hHD0AlH8ExzJ0cqLMJ5g5FO8iA2IpsspZSP8vZIOdosxk_BQdk&_nc_zt=24&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=AtaGEv6iGN3-BclIvB8lRKZ&oh=00_AYD-UaAaCeM0tlz90cuLz7-mZV3ZvH35W7M5I4m62FxGag&oe=67C3C0DB" 
+                        style="height: 40px; width: 40px; border-radius: 50%;"   alt="">
                         {{ user.full_name }}
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" routerLink="/profile">My Account</a></li>
+                        <li><a class="dropdown-item" routerLink="/my-account">My Account</a></li>
                         <li><a class="dropdown-item" routerLink="/orders">Orders</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" (click)="logout()">Logout</a></li>

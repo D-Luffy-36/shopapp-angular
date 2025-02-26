@@ -1,3 +1,5 @@
+@import '../../styles/share-styles.scss';
+
 .intro-section {
     text-align: center;
     color: white;
@@ -18,9 +20,9 @@
 
 .search-input {
     width: 300px;
-    background-color: rgb(19, 23, 42);
+    background-color: $shopapp-color;
     margin-right: 10px;
-    border-color: rgba(255, 255, 255, 0.5);
+    border-color: $shopapp-color;
     color: white;
 }
 
@@ -54,6 +56,11 @@
     padding: 20px;
     margin-top: 20px;
     color: white;
+
+    .product-warranty {
+        color: $shopapp-color !important;
+
+    }
 }
 
 .product-img {
@@ -70,9 +77,7 @@
     color: rgb(173, 178, 203);
 }
 
-.product-warranty {
-    color: rgb(241, 126, 212);
-}
+
 
 .product-price {
     color: white;
@@ -94,3 +99,6 @@
         margin-right: 10px;
     }
 }
+
+
+@media (max-width: 991px) {}

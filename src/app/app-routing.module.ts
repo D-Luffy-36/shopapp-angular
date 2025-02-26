@@ -8,6 +8,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { NgModule } from '@angular/core';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
     { path: 'orders/:id', component: OrderDetailComponent },
     { path: 'history', component: OrderHistoryComponent },
     { path: 'detail-product/:id', component: DetailProductComponent },
-    { path: 'notification', component: NotificationComponent }
+    { path: 'notification', component: NotificationComponent },
+    { path: 'my-account', component: MyAccountComponent }
 
 ];
 

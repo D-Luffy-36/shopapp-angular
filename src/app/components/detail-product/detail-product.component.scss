@@ -137,3 +137,46 @@
         }
     }
 }
+
+@media(min-width: 992px) {
+    .product-detail {
+        display: inline-block;
+
+    }
+}
+
+@media (max-width: 991px) {
+    .product-detail {
+        text-align: center;
+    }
+
+    /* Mobile */
+    .product-action button {
+        width: 100%;
+        /* Nút full chiều rộng */
+        margin-bottom: 10px;
+    }
+
+    .product-quantity {
+        display: flex;
+        justify-content: center;
+    }
+
+    .thumbnail-container {
+        display: flex;
+        overflow-x: auto;
+        /* Cuộn ngang nếu quá nhiều ảnh */
+        white-space: nowrap;
+    }
+
+    img {
+        width: auto;
+    }
+
+
+    // .thumbnail-item img {
+    //     width: 50px;
+    //     /* Giảm kích thước thumbnail */
+    //     height: auto;
+    // }
+}

@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 
 
 
@@ -35,6 +36,7 @@ import { NotificationComponent } from './components/notification/notification.co
     AppComponent,
     OrderHistoryComponent,
     NotificationComponent,
+    MyAccountComponent,
   ],
   imports: [
     ReactiveFormsModule,

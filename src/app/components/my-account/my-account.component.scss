@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Đẩy hai phần tử ra hai phía */
+    width: 100%;
+    /* Đảm bảo có đủ không gian */
+    gap: 30px;
+
+    .intro-section {
+        display: inline-block;
+    }
+
+    background-size: cover;
+    /* Phủ kín vùng chứa */
+    background-position: center;
+    /* Căn giữa */
+    background-repeat: no-repeat;
+    /* Không lặp lại */
+
+    input {
+        width: 100%;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        /* Chuyển từ hàng ngang thành cột */
+        text-align: center;
+    }
+}

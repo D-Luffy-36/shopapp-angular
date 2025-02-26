@@ -13,6 +13,7 @@ import { TokenService } from 'src/app/service/user/token.service';
 })
 export class OrderHistoryComponent implements OnInit {
   userId?: number;
+  userName?: string;
   orders: OrderResponse[] = []
 
   constructor(
@@ -23,6 +24,7 @@ export class OrderHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.tokeService.getUserIdFromToken() ?? -1;
+
     if (this.userId < 0) {
       return;
     }

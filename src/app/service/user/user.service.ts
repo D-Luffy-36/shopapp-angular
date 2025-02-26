@@ -6,6 +6,7 @@ import { LoginDTO } from '../../dtos/login.dto';
 import { environment } from '../../environments/environment';
 import { TokenService } from './token.service';
 import { UserResponse } from 'src/app/responses/user/user.response';
+import { UpdateUserDTO } from 'src/app/dtos/user.update';
 
 
 @Injectable({
@@ -13,9 +14,11 @@ import { UserResponse } from 'src/app/responses/user/user.response';
 })
 
 export class UserService {
-  private registerUrl = environment.apiBaseUrl + "/users/register"
-  private loginUrl = environment.apiBaseUrl + "/users/login"
-  private detailUrl = environment.apiBaseUrl + "/users/details"
+  private readonly KEY: string = "user";
+  private registerUrl = environment.apiBaseUrl + "/users/register";
+  private loginUrl = environment.apiBaseUrl + "/users/login";
+  private detailUrl = environment.apiBaseUrl + "/users/details";
+  private updateUrl = environment.apiBaseUrl + "/users/update";
 
   private apiConfig = {
     headers: this.createHeaders(),
@@ -34,6 +37,14 @@ export class UserService {
 
   login(loginData: LoginDTO): Observable<any> {
     return this.http.post(this.loginUrl, loginData, this.apiConfig);
+  }
+
+  update(token: string, updateUserDTO: UpdateUserDTO): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post(this.updateUrl, updateUserDTO, { headers });
   }
 
   getUserDetail(token: string): Observable<any> {
@@ -68,6 +79,10 @@ export class UserService {
       console.log("cant not get user")
       return null;
     }
+  }
+
+  removeUserFromLocalStorge() {
+    localStorage.removeItem(this.KEY);
   }
 
 
