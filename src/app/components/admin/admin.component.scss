@@ -1,0 +1,15 @@
+html body .container-fluid {
+    background-color: white !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.header {
+    text-align: center;
+    padding: 10px !important;
+}
+
+.sidebar {
+    height: 100vh;
+    overflow-y: auto;
+}

@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 
@@ -37,6 +38,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
     OrderHistoryComponent,
     NotificationComponent,
     MyAccountComponent,
+    AdminComponent,
   ],
   imports: [
     ReactiveFormsModule,

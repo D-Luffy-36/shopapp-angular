@@ -59,8 +59,7 @@ export class LoginComponent implements OnInit {
     const loginDTO: LoginDTO = {
       "phone_number": this.phone,
       "password": this.password,
-
-    }
+    };
 
     const loginDTOFake: LoginDTO = {
       "phone_number": "012345613",
@@ -85,6 +84,13 @@ export class LoginComponent implements OnInit {
               }
               this.userResponse = userApiResponse.data;
 
+              // Check if the user has an admin role
+              if (this.userResponse.role.name === 'admin') {
+                this.router.navigate(['/admin']);
+              } else {
+                this.router.navigate(['/']);
+              }
+
               this.userService.saveUserResponseToLocalStorage(this.userResponse);
             },
             error: (err: any) => {
@@ -92,12 +98,10 @@ export class LoginComponent implements OnInit {
               console.log("error: ", err)
             }
           })
+        } else {
+          this.router.navigate(['/']);
         }
-
-        this.router.navigate(['/']);
-        alert("Well come shop app")
-
-
+        alert("Welcome to shop app")
       },
       error: (err: any) => {
         alert('Login failed: ' + err.error.message);

@@ -169,8 +169,7 @@ export class OrderComponent implements OnInit {
     })
     // xóa trong cart local storage
     this.cartService.removeFromCart(productId);
-
-
+    this.calculatorTotal();
   }
 
 }
