@@ -20,6 +20,8 @@ import { OrderHistoryComponent } from './components/order-history/order-history.
 import { NotificationComponent } from './components/notification/notification.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { OrdersTableComponent } from './components/admin/orders-table/orders-table.component';
+import { NavbarComponent } from './components/admin/navbar/navbar.component';
 
 
 
@@ -39,6 +41,8 @@ import { AdminComponent } from './components/admin/admin.component';
     NotificationComponent,
     MyAccountComponent,
     AdminComponent,
+    OrdersTableComponent,
+    NavbarComponent,
   ],
   imports: [
     ReactiveFormsModule,

@@ -12,6 +12,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { AdminComponent } from './components/admin/admin.component';
 import { AdminGuard } from './guards/admin.guard';
 import { UserGuard } from './guards/user.guard';
+import { OrdersTableComponent } from './components/admin/orders-table/orders-table.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
     { path: 'notification', component: NotificationComponent },
     { path: 'my-account', component: MyAccountComponent, canActivate: [UserGuard] },
     { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
-    { path: '**', redirectTo: '' }
+    { path: 'admin/orders', component: OrdersTableComponent, canActivate: [AdminGuard] },
+    // { path: '**', redirectTo: '' }
 
 ];
 

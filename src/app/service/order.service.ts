@@ -8,11 +8,13 @@ import { OrderDTO } from '../dtos/order.dto';
 import { TokenService } from './user/token.service';
 import { ApiResponse } from '../responses/api.response';
 import { OrderResponse } from '../responses/order/order.response';
+import { ListOrderResponse } from '../responses/order/list.order.response';
 
 @Injectable({
     providedIn: 'root'
 })
 
+// Interceptor đã thêm token
 
 export class OrderService {
 
@@ -42,6 +44,15 @@ export class OrderService {
         const url = this.orderUrl + `/users/${userId}`;
         return this.http.get<ApiResponse<OrderResponse[]>>(url);
     }
+
+    getListOrder(keyWord: string, page: number, limit: number): Observable<ListOrderResponse> {
+        const params = new HttpParams()
+            .set('keyWord', keyWord)
+            .set('page', page.toString())
+            .set('limit', limit.toString());
+        return this.http.get<ListOrderResponse>(this.orderUrl, { params });
+    }
+
 
 }
 

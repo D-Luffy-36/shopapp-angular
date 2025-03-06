@@ -13,7 +13,7 @@ import { TokenService } from "../service/user/token.service";
     providedIn: "root",
 })
 
-
+// ✅ Interceptor sẽ tự thêm token vào mọi request, nên không cần thêm thủ công trong từng function của Service.
 export class TokenInterceptor implements HttpInterceptor {
     constructor(private tokenService: TokenService) { }
     // đăng kí interceptor trong module
