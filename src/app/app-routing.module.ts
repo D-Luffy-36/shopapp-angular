@@ -13,6 +13,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AdminGuard } from './guards/admin.guard';
 import { UserGuard } from './guards/user.guard';
 import { OrdersTableComponent } from './components/admin/orders-table/orders-table.component';
+import { UserTableComponent } from './components/admin/user-table/user-table.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
     { path: 'my-account', component: MyAccountComponent, canActivate: [UserGuard] },
     { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
     { path: 'admin/orders', component: OrdersTableComponent, canActivate: [AdminGuard] },
+    { path: 'admin/users', component: UserTableComponent, canActivate: [AdminGuard] },
     // { path: '**', redirectTo: '' }
 
 ];

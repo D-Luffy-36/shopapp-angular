@@ -27,6 +27,10 @@ export class UserService {
 
   constructor(private http: HttpClient, private tokenService: TokenService) { };
 
+  private list() {
+    return this.http.get(environment.apiBaseUrl + "/users");
+  }
+
   private createHeaders(): HttpHeaders {
     return new HttpHeaders({ 'Content-Type': 'application/json', });
   }
@@ -84,6 +88,8 @@ export class UserService {
   removeUserFromLocalStorge() {
     localStorage.removeItem(this.KEY);
   }
+
+
 
 
 

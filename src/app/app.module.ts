@@ -22,6 +22,7 @@ import { MyAccountComponent } from './components/my-account/my-account.component
 import { AdminComponent } from './components/admin/admin.component';
 import { OrdersTableComponent } from './components/admin/orders-table/orders-table.component';
 import { NavbarComponent } from './components/admin/navbar/navbar.component';
+import { UserTableComponent } from './components/admin/user-table/user-table.component';
 
 
 
@@ -43,6 +44,7 @@ import { NavbarComponent } from './components/admin/navbar/navbar.component';
     AdminComponent,
     OrdersTableComponent,
     NavbarComponent,
+    UserTableComponent,
   ],
   imports: [
     ReactiveFormsModule,
