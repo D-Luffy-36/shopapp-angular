@@ -23,11 +23,10 @@ export class MyAccountComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private tokenService: TokenService
-  ) {
+  ) { }
 
-  }
   ngOnInit(): void {
-    let user = this.userService.getUserFromLocalStorage();
+    const user = this.userService.getUserFromLocalStorage();
     if (!user) {
       return;
     }
@@ -35,54 +34,68 @@ export class MyAccountComponent implements OnInit {
     this.dataUpdate = {
       phone_number: user.phone_number,
       full_name: user.full_name ?? '',
-      address: '',
+      address: user.address ?? '',
       date_of_birth: user.date_of_birth ?? new Date(),
-      password: "",
-      retype_password: ""
+      roles: user.roles ?? [],
+      password: '',
+      retype_password: ''
+    };
+  }
+
+  /**
+   * Kiểm tra mật khẩu có khớp hay không
+   */
+  checkPasswordsMatch(): void {
+    if (this.dataUpdate.password && this.dataUpdate.password !== this.dataUpdate.retype_password) {
+      this.profileForm.form.controls['retype_password'].setErrors({ 'passwordMismatch': true });
+    } else {
+      this.profileForm.form.controls['retype_password'].setErrors(null);
     }
   }
 
-
-  checkPasswordsMatch() {
-    if (this.dataUpdate.password !== this.dataUpdate.retype_password) {
-      this.profileForm.form.controls['retype_password'].setErrors({ 'passwordMismatch': true })
-    }
-    else {
-      this.profileForm.form.controls['retype_password'].setErrors(null)
-    }
-  }
-
-  checkAge() {
-    // vượt quá năm hiện tại
-    // nhỏ hơn 18 tuổi
+  /**
+   * Kiểm tra tuổi hợp lệ
+   */
+  checkAge(): void {
     if (this.dataUpdate?.date_of_birth) {
       const today = new Date();
       const birthDate = new Date(this.dataUpdate?.date_of_birth);
       let age = today.getFullYear() - birthDate.getFullYear();
-      // check tháng nếu bằng thì check ngày lấy tuổi chuẩn
       const monthDiff = today.getMonth() - birthDate.getMonth();
       if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
         age--;
       }
       if (age < 18) {
-        this.profileForm.form.controls['dateOfBirth'].setErrors({ 'invalidAge': true })
+        this.profileForm.form.controls['dateOfBirth'].setErrors({ 'invalidAge': true });
       } else {
-        this.profileForm.form.controls['dateOfBirth'].setErrors(null)
+        this.profileForm.form.controls['dateOfBirth'].setErrors(null);
       }
     }
   }
 
-
-  updateUser() {
+  /**
+   * Cập nhật thông tin người dùng
+   */
+  updateUser(): void {
     if (this.profileForm.invalid) {
-      this.profileForm.form.markAllAsTouched(); // Đánh dấu tất cả các trường
+      this.profileForm.form.markAllAsTouched();
       return;
     }
-    let token = this.tokenService.getToken();
+
+    const token = this.tokenService.getToken();
     if (!token) {
       this.router.navigate(["/login"]);
+      return;
     }
-    this.userService.update(token ?? '', this.dataUpdate).subscribe({
+
+    // Loại bỏ mật khẩu nếu không được nhập
+    const updateData: UpdateUserDTO = { ...this.dataUpdate };
+    if (!this.dataUpdate.password) {
+      delete updateData.password;
+      delete updateData.retype_password;
+    }
+
+    this.userService.update(updateData).subscribe({
       next: (userApiResponse: ApiResponse<UserResponse>) => {
         this.dataUpdate = {
           ...userApiResponse.data,
@@ -90,13 +103,11 @@ export class MyAccountComponent implements OnInit {
           retype_password: ''
         };
         alert("Update userId: " + this.user.id + " successfully");
-        console.log(userApiResponse);
       },
       error: (error) => {
-        console.log(error)
+        console.error(error);
+        alert("Failed to update user.");
       }
-    })
+    });
   }
-
-
 }

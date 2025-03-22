@@ -1,9 +1,103 @@
 <app-header></app-header>
 <div class="d-flex">
-    <app-navbar class="sidebar"></app-navbar>
-    <div class="main-content container-fluid">
-        <router-outlet></router-outlet>
-    </div>
-</div>
+  <app-navbar class="sidebar"></app-navbar>
+  <div class="main-content container-fluid">
+    <div class="row mt-4">
+      <!-- Users -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card shadow-sm border-primary">
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-container text-primary me-3">
+              <i class="bi bi-people-fill" style="font-size: 2.5rem;"></i>
+            </div>
+            <div>
+              <h6 class="card-title text-primary">Users</h6>
+              <p class="card-text mb-1">
+                New: 
+                <span class="text-success" (click)="viewDetails('users', 'new')"
+                      style="cursor: pointer; text-decoration: underline;">
+                  {{ newUsers }}
+                </span>
+              </p>
+              <p class="card-text">
+                Total: <span class="text-primary">{{ totalUsers }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<!-- <app-footer></app-footer> -->
+      <!-- Products -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card shadow-sm border-warning">
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-container text-warning me-3">
+              <i class="bi bi-box-seam" style="font-size: 2.5rem;"></i>
+            </div>
+            <div>
+              <h6 class="card-title text-warning">Products</h6>
+              <p class="card-text mb-1">
+                New: 
+                <span class="text-success" (click)="viewDetails('products', 'new')"
+                      style="cursor: pointer; text-decoration: underline;">
+                  {{ newProducts }}
+                </span>
+              </p>
+              <p class="card-text">
+                Total: <span class="text-warning">{{ totalProducts }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orders -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card shadow-sm border-info">
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-container text-info me-3">
+              <i class="bi bi-cart-fill" style="font-size: 2.5rem;"></i>
+            </div>
+            <div>
+              <h6 class="card-title text-info">Orders</h6>
+              <p class="card-text mb-1">
+                New: 
+                <span class="text-success" (click)="viewDetails('orders', 'new')"
+                      style="cursor: pointer; text-decoration: underline;">
+                  {{ newOrders }}
+                </span>
+              </p>
+              <p class="card-text">
+                Total: <span class="text-info">{{ totalOrders }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card shadow-sm border-success">
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-container text-success me-3">
+              <i class="bi bi-currency-dollar" style="font-size: 2.5rem;"></i>
+            </div>
+            <div>
+              <h6 class="card-title text-success">Revenue</h6>
+              <p class="card-text mb-1">
+                New: 
+                <span class="text-success" (click)="viewDetails('revenue', 'new')"
+                      style="cursor: pointer; text-decoration: underline;">
+                  {{ newRevenue | currency }}
+                </span>
+              </p>
+              <p class="card-text">
+                Total: <span class="text-success">{{ totalRevenue | currency }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 import { UserService } from '../service/user/user.service';
-
 import { TokenService } from '../service/user/token.service';
 
 @Injectable({
@@ -15,13 +13,23 @@ export class AdminGuard implements CanActivate {
     private tokenService: TokenService,
     private router: Router
   ) { }
-  canActivate() {
+
+  canActivate(): boolean {
     const user = this.userService.getUserFromLocalStorage();
-    if (!user || user.role.name !== 'admin' || !this.tokenService.getToken() || this.tokenService.isTokenExpired()) {
+
+    if (!user || !Array.isArray(user.roles) || !this.tokenService.getToken() || this.tokenService.isTokenExpired()) {
       this.router.navigate(['/']);
       return false;
     }
+
+    // Kiểm tra nếu user có ít nhất 1 role là 'ADMIN'
+    const isAdmin = user.roles.some(role => role.toUpperCase() === 'ADMIN');
+
+    if (!isAdmin) {
+      this.router.navigate(['/']);
+      return false;
+    }
+
     return true;
   }
-
 }

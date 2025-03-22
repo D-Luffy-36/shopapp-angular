@@ -23,8 +23,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { OrdersTableComponent } from './components/admin/orders-table/orders-table.component';
 import { NavbarComponent } from './components/admin/navbar/navbar.component';
 import { UserTableComponent } from './components/admin/user-table/user-table.component';
-
-
+import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
+import { ChatBoxComponent } from './components/chat-box/chat-box.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,8 @@ import { UserTableComponent } from './components/admin/user-table/user-table.com
     OrdersTableComponent,
     NavbarComponent,
     UserTableComponent,
+    UserDetailComponent,
+    ChatBoxComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -52,7 +55,8 @@ import { UserTableComponent } from './components/admin/user-table/user-table.com
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    NgChartsModule
   ],
   providers: [
     {

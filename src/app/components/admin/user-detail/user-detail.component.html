@@ -1,0 +1,125 @@
+<app-header></app-header>
+
+<div class="container mt-4">
+  <h2 class="mb-4 text-primary">User Detail ID: {{ userId }}</h2>
+
+  <!-- Hiển thị thông báo lỗi nếu có -->
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Form chi tiết người dùng -->
+  <form *ngIf="userDetail" (ngSubmit)="updateUser()" class="card shadow p-4">
+    <div class="mb-3">
+      <label for="fullName" class="form-label fw-bold">Full Name</label>
+      <input
+        type="text"
+        id="fullName"
+        class="form-control border-primary"
+        [(ngModel)]="userDetail.full_name"
+        name="full_name"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="phoneNumber" class="form-label fw-bold">Phone Number</label>
+      <input
+        type="text"
+        id="phoneNumber"
+        class="form-control border-primary"
+        [(ngModel)]="userDetail.phone_number"
+        name="phone_number"
+        required
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label fw-bold">Address</label>
+      <input
+        type="text"
+        id="address"
+        class="form-control border-primary"
+        [(ngModel)]="userDetail.address"
+        name="address"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="dateOfBirth" class="form-label fw-bold">Date of Birth</label>
+      <input
+        type="date"
+        id="dateOfBirth"
+        class="form-control border-primary"
+        [(ngModel)]="userDetail.date_of_birth"
+        name="date_of_birth"
+        required
+      />
+    </div>
+
+    <!-- Thay đổi mật khẩu -->
+    <div class="mb-3">
+      <label for="newPassword" class="form-label fw-bold">New Password</label>
+      <input
+        type="password"
+        id="newPassword"
+        class="form-control border-warning"
+        [(ngModel)]="newPassword"
+        name="newPassword"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="confirmPassword" class="form-label fw-bold">Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        class="form-control border-warning"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="roles" class="form-label fw-bold">Roles</label>
+      <div *ngFor="let role of availableRoles" class="form-check">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [checked]="userDetail.roles.includes(role)"
+          (change)="toggleRole(role)"
+        />
+        <label class="form-check-label">{{ role }}</label>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="active" class="form-label fw-bold">Active</label>
+      <select
+        id="active"
+        class="form-select border-success"
+        [(ngModel)]="userDetail.active"
+        name="active"
+      >
+        <option [value]="true">Active</option>
+        <option [value]="false">Inactive</option>
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="button" class="btn btn-danger" (click)="blockUser()">Block</button>
+      <button type="button" class="btn btn-secondary" (click)="goBack()">Back to List</button>
+    </div>
+  </form>
+
+  <!-- Hiển thị trạng thái đang tải -->
+  <div *ngIf="!userDetail && !errorMessage" class="text-center mt-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2">Loading user details...</p>
+  </div>
+</div>
+
+<app-footer></app-footer>

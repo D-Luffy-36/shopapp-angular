@@ -1,0 +1,15 @@
+<div class="chat-box" *ngIf="isVisible">
+    <div class="chat-header">
+      <h5>Chat</h5>
+      <button class="close-btn" (click)="toggleChat()">×</button>
+    </div>
+    <div class="chat-messages">
+      <div *ngFor="let message of messages" class="chat-message">
+        <strong>{{ message.user }}:</strong> {{ message.content }}
+      </div>
+    </div>
+    <div class="chat-input">
+      <textarea [(ngModel)]="newMessage" class="form-control" rows="2" placeholder="Type your message..."></textarea>
+      <button class="btn btn-primary mt-2" (click)="sendMessage()">Send</button>
+    </div>
+</div>

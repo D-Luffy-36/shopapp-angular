@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/app/environments/environment';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/service/product/product.service';
@@ -12,12 +12,20 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './detail-product.component.html',
   styleUrls: ['./detail-product.component.scss']
 })
-export class DetailProductComponent {
+export class DetailProductComponent implements OnInit {
   amount: number = 1;
   product?: Product;
   productId: number = 0;
   imagePath = environment.imagePath;
   currentImageIndex: number = 0;
+
+
+  comments: { user: string; content: string; date: Date }[] = []; // Danh sách bình luận
+  newComment: string = ''; // Nội dung bình luận mới
+
+  // hộp chat
+  isChatVisible: boolean = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -32,6 +40,13 @@ export class DetailProductComponent {
 
 
     this.getProductDetail(this.productId);
+
+    this.comments = [
+      { user: 'Alice', content: 'Great product!', date: new Date() },
+      { user: 'Bob', content: 'Fast delivery and good quality.', date: new Date() },
+      { user: 'Messi', content: 'Great product!', date: new Date() },
+      { user: 'Ronaldo', content: 'Fast delivery and good quality.', date: new Date() }
+    ];
   }
 
   getProductDetail(productId: number) {
@@ -92,11 +107,29 @@ export class DetailProductComponent {
     }
   }
 
+  toggleChat(): void {
+    this.isChatVisible = !this.isChatVisible;
+  }
+
 
   addToCart(productId: number, amount: number, showAlert: boolean = true) {
     this.cartService.addToCart(productId, amount)
     if (showAlert) {
       alert("add to cart successfully")
+    }
+  }
+
+
+  addComment(): void {
+    if (this.newComment.trim()) {
+      this.comments.push({
+        user: 'Guest', // Giả lập tên người dùng
+        content: this.newComment,
+        date: new Date()
+      });
+      this.newComment = ''; // Xóa nội dung sau khi thêm
+    } else {
+      alert('Comment cannot be empty!');
     }
   }
 

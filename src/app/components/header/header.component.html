@@ -36,12 +36,12 @@
                         </a>
                     </li>
 
-                    <li class="nav-item" *ngIf="user?.role?.name === 'admin' ">
+                    <li class="nav-item" *ngIf="user?.roles?.includes('ADMIN')">
                         <a class="nav-link" routerLink="/admin" routerLinkActive="active" aria-current="page">
                             Admin
                         </a>
                     </li>
-
+                    
                 </ul>
             </div>
         </div>

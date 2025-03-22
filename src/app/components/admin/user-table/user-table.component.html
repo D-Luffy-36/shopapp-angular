@@ -1,54 +1,76 @@
 <app-header></app-header>
-<div class="d-flex">
-    <app-navbar class="sidebar"></app-navbar>
-    <div class="container mt-4 table-container">
-        <h2>User</h2>
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered custom-table">
-                <thead class="table-dark text-center">
-                    <tr>
-                        <th>ID</th>
-                        <th>Full Name</th>
-                        <th>Phone Number</th>
-                        <th>Address</th>
-                        <th>Active</th>
-                        <th>Date of Birth</th>
-                        <th>Facebook ID</th>
-                        <th>Google ID</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    <tr>
-                        <td>3</td>
-                        <td>Duong Thanh Nhan</td>
-                        <td>0987654321</td>
-                        <td>123 Nguyen Trai, Thanh Xuan, Ha Noi</td>
-                        <td>✅</td>
-                        <td>2004-08-07</td>
-                        <td>987654321</td>
-                        <td>123456789</td>
-                        <td><span class="badge bg-primary">Admin</span></td>
-                        <td>
-                            <button class="btn btn-warning btn-sm">Edit</button>
-                            <button class="btn btn-danger btn-sm">Block</button>
-                            <button class="btn btn-success btn-sm">Active</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<div class="container mt-4">
+    <h2>Users</h2>
+
+    <!-- Search Bar -->
+    <div class="mb-3">
+        <input
+            type="text"
+            class="form-control"
+            placeholder="Search users..."
+            [(ngModel)]="keyWord"
+            (keyup.enter)="onSearch()"
+        />
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered custom-table">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th>Id</th>
+                    <th>👤 Full Name</th>
+                    <th>📞 Phone</th>
+                    <th>🏡 Address</th>
+                    <th>📅 Date of Birth</th>
+                    <th>🔵 Active</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr *ngFor="let user of listData?.users || []">
+                    <td>#{{ user.id }}</td>
+                    <td>{{ user.full_name }}</td>
+                    <td>{{ user.phone_number }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>{{ user.date_of_birth | date: 'dd/MM/yyyy' }}</td>
+                    <td>{{ user.active ? '✅' : '❌' }}</td>
+                    <td>
+                        <span *ngFor="let role of user.roles; let i = index">
+                            {{ role }} <span *ngIf="i < user.roles.length - 1">, </span>
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm me-2" (click)="viewUser(user.id)">View</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center m-3">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item" *ngIf="currentPage > 1">
+                        <a class="page-link" (click)="onPageChange($event, 1)">First</a>
+                    </li>
+                    <li class="page-item" *ngIf="currentPage > 1">
+                        <a class="page-link" (click)="onPageChange($event, currentPage - 1)">Previous</a>
+                    </li>
+                    <ng-container *ngFor="let page of visiblePages">
+                        <li class="page-item" [ngClass]="{ 'active': page === currentPage }">
+                            <a class="page-link" (click)="onPageChange($event, page)">{{ page }}</a>
+                        </li>
+                    </ng-container>
+                    <li class="page-item" *ngIf="currentPage < totalPages">
+                        <a class="page-link" (click)="onPageChange($event, currentPage + 1)">Next</a>
+                    </li>
+                    <li class="page-item" *ngIf="currentPage < totalPages">
+                        <a class="page-link" (click)="onPageChange($event, totalPages)">Last</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
-
-<script>
-    document.querySelectorAll('.btn-danger').forEach(button => {
-        button.addEventListener('click', function() {
-            if (confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
-                alert('Người dùng đã bị xóa!');
-            }
-        });
-    });
-</script>
-<!-- <app-footer></app-footer> -->
+<app-footer></app-footer>

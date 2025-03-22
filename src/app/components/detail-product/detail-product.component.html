@@ -1,65 +1,121 @@
 <app-header></app-header>
-    <div class="container">
-        <div class="intro-section">
-            <h1>Chi tiết sản phẩm</h1>
-            <p>Sử dụng Bootstrap để tối ưu giao diện</p>
+
+<div class="container mt-4">
+  <!-- Tiêu đề sản phẩm -->
+  <div class="intro-section text-center mb-4">
+    <h1 class="text-primary">Product Details</h1>
+  </div>
+
+  <div class="row">
+    <!-- Carousel và Thumbnails -->
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              [src]="imagePath + '/' + product?.images?.[currentImageIndex]?.image_url"
+              class="d-block w-100"
+              alt="Product image"
+            />
+          </div>
         </div>
 
-        <div class="row">
-            <!-- Carousel -->
-            <div id="carouselExampleControls" class="col-lg-6 col-md-12 mb-4 carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img [src]="imagePath + '/' + product?.images?.[currentImageIndex]?.image_url"
-                            class="d-block w-100"
-                            alt="Product image"
-                            height="50%">
-                    </div>
-                </div>
-                
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                 data-bs-slide="prev" (click)="previosImage()">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="prev"
+          (click)="previosImage()"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
 
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                 data-bs-slide="next" (click)="nextImage()">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-                 <!-- Thumbnails -->
-                <h5 class="mb-3 mt-3" style="text-align: center;">images of product</h5>
-                <div class="thumbnail-container">
-                    <div class="thumbnail-item"
-                        *ngFor="let image of product?.images;
-                        let i = index" (click)="thumNailClick(i)"
-                        [ngClass]="{'active' : i === currentImageIndex}">
-                            <img [src]="imagePath + '/' + image.image_url" >
-                    </div>
-                </div>
-            </div>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="next"
+          (click)="nextImage()"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
 
-            <div class="col-lg-6 col-md-12">
-               <div class="product-detail">
-                    <h2>detail information</h2>
-                    <p>product: {{product?.name}}</p>
-                    <p>category: {{product?.category}}</p>
-                    <p>description {{product?.description}}</p>
-                    <p class="product-price">Unit price: {{product?.price | currency:'VND':'symbol':'1.0-2' }}</p>
-                    <div class="product-action">
-                        <button (click)="addToCart(productId, amount)">add to cart</button>
-                        <button (click)="buyNow(productId, amount)">buy now</button>
-                    </div>
-                    <div class="product-quantity">
-                        <button (click)="onClickReduce()">-</button>
-                        <input type="text" name="amount" id="" [value]="amount" >
-                        <button (click)="onClickIncrease()">+ </button>
-                    </div>
-               </div>
-            </div>
-            
+      <!-- Thumbnails -->
+      <h5 class="text-center mt-3">Images of Product</h5>
+      <div class="thumbnail-container d-flex justify-content-center flex-wrap">
+        <div
+          class="thumbnail-item m-2"
+          *ngFor="let image of product?.images; let i = index"
+          (click)="thumNailClick(i)"
+          [ngClass]="{ 'active': i === currentImageIndex }"
+        >
+          <img [src]="imagePath + '/' + image.image_url" class="img-thumbnail" />
         </div>
+      </div>
     </div>
-<app-footer></app-footer>
 
+    <!-- Thông tin sản phẩm -->
+    <div class="col-lg-6 col-md-12">
+      <div class="product-detail p-4 border rounded shadow-sm">
+        <h2 class="text-secondary">Detail Information</h2>
+        <p><strong>Product:</strong> {{ product?.name }}</p>
+        <p><strong>Category:</strong> {{ product?.category }}</p>
+        <p><strong>Description:</strong> {{ product?.description }}</p>
+        <p class="product-price"><strong>Unit Price:</strong> {{ product?.price | currency: 'VND':'symbol':'1.0-2' }}</p>
+
+        <!-- Hành động -->
+        <div class="product-action mt-4">
+          <button class="btn btn-primary me-2" (click)="addToCart(productId, amount)">Add to Cart</button>
+          <button class="btn btn-success" (click)="buyNow(productId, amount)">Buy Now</button>
+        </div>
+
+        <!-- Số lượng -->
+        <div class="product-quantity mt-3 d-flex align-items-center">
+          <button class="btn btn-outline-primary me-2" (click)="onClickReduce()">-</button>
+          <input
+            type="text"
+            name="amount"
+            class="form-control text-center"
+            style="width: 60px;"
+            [value]="amount"
+          />
+          <button class="btn btn-outline-primary ms-2" (click)="onClickIncrease()">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Icon mở hộp chat -->
+  <div class="chat-icon position-fixed" style="bottom: 20px; right: 20px;" (click)="toggleChat()">
+    <img src="assets/chat-icon.png" alt="Chat Icon" class="img-fluid" />
+  </div>
+  <app-chat-box [isVisible]="isChatVisible"></app-chat-box>
+
+  <!-- Phần bình luận -->
+  <div class="comments-section mt-5">
+    <h3 class="text-primary">Comments</h3>
+
+    <!-- Hiển thị danh sách bình luận -->
+    <div *ngFor="let comment of comments" class="comment-item mb-3 p-3 border rounded shadow-sm">
+      <p><strong>{{ comment.user }}</strong>: {{ comment.content }}</p>
+      <small class="text-muted">{{ comment.date | date: 'short' }}</small>
+    </div>
+
+    <!-- Form thêm bình luận -->
+    <div class="add-comment mt-4">
+      <h5 class="text-secondary">Add a Comment</h5>
+      <textarea
+        [(ngModel)]="newComment"
+        class="form-control mb-2"
+        rows="3"
+        placeholder="Write your comment here..."
+      ></textarea>
+      <button class="btn btn-primary" (click)="addComment()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

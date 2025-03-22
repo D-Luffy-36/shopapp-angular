@@ -20,7 +20,6 @@ export class OrdersTableComponent implements OnInit {
 
   visiblePages: number[] = []
 
-
   constructor(
     private router: Router,
     private orderService: OrderService) {

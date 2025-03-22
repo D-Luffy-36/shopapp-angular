@@ -1,0 +1,53 @@
+.container {
+    margin-top: 20px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: yellow; // Màu chữ mặc định
+}
+
+.table {
+    margin-top: 20px;
+    width: 100%;
+    border: 1px solid #dee2e6;
+}
+
+.table th {
+    width: 30%;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    text-align: left;
+    color: #007bff; // Đặt màu chữ cho tiêu đề bảng
+}
+
+.table td {
+    text-align: left;
+    color: white; // Đặt màu chữ cho nội dung bảng
+}
+
+.badge {
+    font-size: 0.9rem;
+    padding: 0.5em 0.75em;
+    color: #ffffff; // Màu chữ mặc định cho badge
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+    color: #ffffff; // Màu chữ trắng
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+    color: #ffffff; // Màu chữ trắng
+}
+
+.bg-primary {
+    background-color: #007bff !important;
+    color: #ffffff; // Màu chữ trắng
+}
+
+.spinner-border {
+    margin-top: 20px;
+}

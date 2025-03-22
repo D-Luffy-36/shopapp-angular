@@ -61,31 +61,22 @@ export class LoginComponent implements OnInit {
       "password": this.password,
     };
 
-    const loginDTOFake: LoginDTO = {
-      "phone_number": "012345613",
-      "password": "SecurePassword123"
-    }
-
     this.userService.login(loginDTO).subscribe({
       next: (response: ApiResponse<LoginResponse>) => {
-        // Xử lý phản hồi thành công
-
-        // Nếu token có giá trị truthy (khác null, undefined, false, 0, NaN, hoặc ""), thì khối lệnh trong if sẽ được thực thi.
-        // lưu trữ token
         const { token } = response.data;
         if (token) {
           this.tokenService.setToken(token);
-          debugger
-          this.userService.getUserDetail(token).subscribe({
+
+          this.userService.getUserDetail().subscribe({
             next: (userApiResponse: ApiResponse<UserResponse>) => {
               if (userApiResponse.message || userApiResponse.status === 'BAD_REQUEST') {
-                alert(userApiResponse.message)
+                alert(userApiResponse.message);
                 return;
               }
               this.userResponse = userApiResponse.data;
 
-              // Check if the user has an admin role
-              if (this.userResponse.role.name === 'admin') {
+              // Kiểm tra danh sách roles (List<string>)
+              if (this.userResponse.roles.includes('ADMIN')) {
                 this.router.navigate(['/admin']);
               } else {
                 this.router.navigate(['/']);
@@ -94,20 +85,19 @@ export class LoginComponent implements OnInit {
               this.userService.saveUserResponseToLocalStorage(this.userResponse);
             },
             error: (err: any) => {
-              debugger;
-              console.log("error: ", err)
+              console.log("error: ", err);
             }
-          })
+          });
         } else {
           this.router.navigate(['/']);
         }
-        alert("Welcome to shop app")
+        alert("Welcome to shop app");
       },
       error: (err: any) => {
         alert('Login failed: ' + err.error.message);
       }
     });
-
   }
+
 
 }

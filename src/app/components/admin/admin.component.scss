@@ -1,5 +1,45 @@
-html body .container-fluid {
-    background-color: white !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+.card {
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05); // Hiệu ứng phóng to khi hover
+    }
+
+    .icon-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .card-title {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .text-success {
+        color: #28a745;
+    }
+
+    .text-primary {
+        color: #007bff;
+    }
+
+    .text-warning {
+        color: #ffc107;
+    }
+
+    .text-info {
+        color: #17a2b8;
+    }
 }

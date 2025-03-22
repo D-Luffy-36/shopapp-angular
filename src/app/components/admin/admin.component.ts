@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryService } from 'src/app/service/category/category.service';
-import { OrderService } from 'src/app/service/order.service';
-import { UserService } from 'src/app/service/user/user.service';
-
 
 @Component({
   selector: 'app-admin',
@@ -11,19 +7,30 @@ import { UserService } from 'src/app/service/user/user.service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+  // Users
+  newUsers: number = 56;
+  totalUsers: number = 1234;
 
-  constructor(
-    private router: Router,
-    private userService: UserService,
-    private orderService: OrderService,
-    private categoryService: CategoryService,
-  ) { }
+  // Products
+  newProducts: number = 12;
+  totalProducts: number = 789;
 
-  ngOnInit(): void {
+  // Orders
+  newOrders: number = 34;
+  totalOrders: number = 345;
+
+  // Revenue
+  newRevenue: number = 5000;
+  totalRevenue: number = 100000;
+
+  constructor(private router: Router) { }
+
+  ngOnInit(): void { }
+
+  viewDetails(type: string, category: string): void {
+    // Điều hướng đến trang chi tiết hoặc hiển thị modal
+    console.log(`Viewing details for ${category} ${type}`);
+    // Ví dụ: Điều hướng đến trang chi tiết
+    this.router.navigate([`/details/${type}/${category}`]);
   }
-
-  logout() {
-    alert('Logout');
-  }
-
 }
