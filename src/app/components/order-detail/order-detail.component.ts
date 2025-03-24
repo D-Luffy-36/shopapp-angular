@@ -19,7 +19,7 @@ export class OrderDetailComponent implements OnInit {
   orderDetails: OrderResponse[] = [];
 
   private orderId: number = -1;
-  imagePath = environment.imagePath;
+  imagePath = environment.productImgBase;
   constructor(
     private route: ActivatedRoute,
     private router: Router,

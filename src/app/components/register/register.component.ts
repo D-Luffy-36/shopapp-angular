@@ -20,6 +20,7 @@ export class RegisterComponent {
   confirmPassword: string;
   isAccepted: boolean;
   dateOfBirth: Date;
+  email: string;
 
   // inject UserService
   constructor(private router: Router, private userService: UserService) {
@@ -29,6 +30,7 @@ export class RegisterComponent {
     this.password = '';
     this.confirmPassword = '';
     this.isAccepted = false;
+    this.email = ''
     this.dateOfBirth = new Date();
     this.dateOfBirth.setFullYear(this.dateOfBirth.getFullYear() - 18)
   }
@@ -37,6 +39,13 @@ export class RegisterComponent {
   onPhoneChange() {
     console.log(this.phone)
   }
+
+  // Hàm kiểm tra tính hợp lệ của email
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
 
   register() {
     const userData: RegisterDTO = {

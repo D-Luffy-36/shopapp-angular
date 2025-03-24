@@ -40,7 +40,7 @@ export class OrderComponent implements OnInit {
     cart_items: [] // Danh sách sản phẩm trong giỏ hàng
   }
 
-  imagePath = environment.imagePath;
+  imagePath = environment.productImgBase;
   constructor(
     private router: Router,
     private userService: UserService,

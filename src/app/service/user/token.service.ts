@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { LoginResponse } from "src/app/responses/user/login.response";
 
 @Injectable({
     providedIn: "root",
@@ -7,7 +8,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 
 export class TokenService {
-    private readonly TOKEN_KEY = "access_token";
+    private readonly ACCESS_TOKEN = "access_token";
+    private readonly REFRESH_TOKEN = "refresh_token";
+    private readonly TYPE_TOKEN = "type";
+
+
     private jwtHelper = new JwtHelperService(); // Khởi tạo JwtHelperService
 
     constructor() {
@@ -15,16 +20,19 @@ export class TokenService {
     }
 
     getToken(): string | null {
-        return localStorage.getItem(this.TOKEN_KEY);
+        return localStorage.getItem(this.ACCESS_TOKEN);
     }
 
     // lưu token local storage
-    setToken(token: string): void {
-        localStorage.setItem(this.TOKEN_KEY, token);
+    setToken(loginResponse: LoginResponse): void {
+        localStorage.setItem(this.ACCESS_TOKEN, loginResponse.token);
+        localStorage.setItem(this.REFRESH_TOKEN, loginResponse.refresh_token);
+        localStorage.setItem(this.TYPE_TOKEN, loginResponse.token_type);
+
     }
 
     removeToken(): void {
-        localStorage.removeItem(this.TOKEN_KEY)
+        localStorage.removeItem(this.ACCESS_TOKEN)
     }
 
     getUserIdFromToken(): number | null {

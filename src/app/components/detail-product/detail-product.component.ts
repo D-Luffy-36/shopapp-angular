@@ -16,7 +16,7 @@ export class DetailProductComponent implements OnInit {
   amount: number = 1;
   product?: Product;
   productId: number = 0;
-  imagePath = environment.imagePath;
+  imagePath = environment.productImgBase;
   currentImageIndex: number = 0;
 
 
@@ -82,8 +82,8 @@ export class DetailProductComponent implements OnInit {
 
   thumNailClick(index: number) {
     this.currentImageIndex = index;
-    // console.log(index);
   }
+
 
   onClickIncrease() {
     this.amount++;

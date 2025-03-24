@@ -48,7 +48,7 @@
       <div class="thumbnail-container d-flex justify-content-center flex-wrap">
         <div
           class="thumbnail-item m-2"
-          *ngFor="let image of product?.images; let i = index"
+          *ngFor="let image of product?.images; let i = index "
           (click)="thumNailClick(i)"
           [ngClass]="{ 'active': i === currentImageIndex }"
         >
@@ -100,7 +100,7 @@
 
     <!-- Hiển thị danh sách bình luận -->
     <div *ngFor="let comment of comments" class="comment-item mb-3 p-3 border rounded shadow-sm">
-      <p><strong>{{ comment.user }}</strong>: {{ comment.content }}</p>
+      <p style="color: black;"><strong>{{ comment.user }}</strong>: {{ comment.content }}</p>
       <small class="text-muted">{{ comment.date | date: 'short' }}</small>
     </div>
 

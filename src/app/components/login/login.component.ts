@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   phone: string;
   password: string;
   rememberMe: boolean;
+  loginResponse?: LoginResponse;
   userResponse?: UserResponse;
 
   constructor(private router: Router,
@@ -63,9 +64,9 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(loginDTO).subscribe({
       next: (response: ApiResponse<LoginResponse>) => {
-        const { token } = response.data;
-        if (token) {
-          this.tokenService.setToken(token);
+        this.loginResponse = response.data;
+        if (this.loginResponse) {
+          this.tokenService.setToken(this.loginResponse);
 
           this.userService.getUserDetail().subscribe({
             next: (userApiResponse: ApiResponse<UserResponse>) => {

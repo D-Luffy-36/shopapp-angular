@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
 
   totalPages: number = 0;
 
-  imagePath = environment.imagePath;
+  imagePath = environment.productImgBase;
 
   keyWord: string = "";
   selectedCategoryId: number = 0
